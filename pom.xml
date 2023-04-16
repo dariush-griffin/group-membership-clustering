@@ -29,18 +29,18 @@
   <artifactId>group-membership-clustering</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
-  <scm>
-    <url></url>
-  </scm>
   <licenses>
     <license>
       <name>MIT</name>
     </license>
   </licenses>
+  <scm>
+    <url>https://github.com/dariush-griffin/group-membership-clustering</url>
+  </scm>
   <contributors>
     <contributor>
       <name>Dariush Griffin</name>
-      <url></url>
+      <url>https://github.com/dariush-griffin</url>
     </contributor>
   </contributors>
 
@@ -106,7 +106,7 @@
         <configuration>
           <licenseSets>
             <licenseSet>
-              <header>license.txt</header>
+              <header>LICENSE</header>
               <excludes>
                 <exclude>**/README</exclude>
                 <exclude>src/test/resources/**</exclude>
