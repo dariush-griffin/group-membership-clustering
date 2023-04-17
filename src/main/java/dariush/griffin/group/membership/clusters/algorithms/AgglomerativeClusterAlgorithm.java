@@ -30,7 +30,11 @@ import dariush.griffin.group.membership.clusters.utilities.GroupCache;
 
 import static dariush.griffin.group.membership.clusters.utilities.ClusterUtilities.calculateSquaredEuclideanDistance;
 
-// TODO Fix copyright.
+/**
+ * <p>This algorithm clusters {@link Group}.</p>
+ *
+ * @author Dariush Griffin
+ */
 public class AgglomerativeClusterAlgorithm implements ClusterAlgorithm
 {
   private final MembershipMapping membershipMapping;

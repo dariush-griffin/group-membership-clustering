@@ -20,22 +20,46 @@ package dariush.griffin.group.membership.clusters.model;
 
 import java.util.Objects;
 
+/**
+ * <p>Represents a member of a group. Each member has a vector index which should be assigned to them by the
+ * {@link MembershipMapping}. Comparison between members is done on their vector index and then their name.</p>
+ *
+ * @author Dariush Griffin
+ */
 public class Member
     implements Comparable<Member>
 {
+  /**
+   * A unique name for this member.
+   */
   private final String name;
 
+  /**
+   * This member's corresponding vector in the membership mapping, used by others to map a contribution back to a user.
+   */
   private final int vectorIndex;
 
+  /**
+   * <p>Constructs a Member with the provided name and vector index.</p>
+   *
+   * @param name        The unique name of this group.
+   * @param vectorIndex The index in the membership mapping that represents this group.
+   */
   public Member(String name, int vectorIndex) {
     this.name = name;
     this.vectorIndex = vectorIndex;
   }
 
+  /**
+   * @return The unique name for this member.
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * @return The vector index for this member, assigned to them by the membership mapping.
+   */
   public int getVectorIndex() {
     return vectorIndex;
   }

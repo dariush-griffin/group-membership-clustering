@@ -20,6 +20,11 @@ package dariush.griffin.group.membership.clusters.model;
 
 import java.util.Objects;
 
+/**
+ * <p>Mutable pairing of weights. Used when performing calculations between vectors.</p>
+ *
+ * @author Dariush Griffin
+ */
 public class WeightPair
 {
   public Float first;

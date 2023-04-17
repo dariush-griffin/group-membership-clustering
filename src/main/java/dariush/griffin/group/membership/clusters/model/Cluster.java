@@ -24,32 +24,50 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * <p>A cluster is a collection of {@link Group}s. Since, {@link Group}s represents point in space the cluster could
+ * also be thought of as a collection of points in space.</p>
+ *
+ * @author Dariush Griffin
+ */
 public class Cluster
 {
+  /**
+   * The {@link Group}s of this cluster.
+   */
   private final Set<Group> groups;
 
+  /**
+   * <p>Constructs a new Cluster with an empty set of {@link Group}s.</p>
+   */
   public Cluster() {
     groups = new HashSet<>();
   }
 
+  /**
+   * <p>Adds the provided {@link Group} to the Cluster. If the {@link Group} already exists in the cluster it is not
+   * added.</p>
+   *
+   * @param group The {@link Group} to be added to this cluster.
+   */
   public void addGroup(Group group) {
-    addGroupHelper(group);
-  }
-
-  public void addGroups(Collection<Group> groups) {
-    for(Group group : groups) {
-      addGroupHelper(group);
-    }
-  }
-
-  private void addGroupHelper(Group group) {
-    if (groups.contains(group)) {
-      return;
-    }
-
     groups.add(group);
   }
 
+  /**
+   * <p>Adds all {@link Group}s to the cluster. Duplicates are not added.</p>
+   *
+   * @param groups A collection of {@link Group}s to be added to the cluster.
+   */
+  public void addGroups(Collection<Group> groups) {
+    for (Group group : groups) {
+      addGroup(group);
+    }
+  }
+
+  /**
+   * @return An unmodifiable set of the {@link Group}s in this cluster.
+   */
   public Set<Group> getGroups() {
     return Collections.unmodifiableSet(groups);
   }

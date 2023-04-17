@@ -22,7 +22,16 @@ import java.util.Set;
 
 import dariush.griffin.group.membership.clusters.model.Cluster;
 
+/**
+ * <p>A simple interface for algorithms that cluster
+ * {@link dariush.griffin.group.membership.clusters.model.MembershipMapping}.</p>
+ *
+ * @author Dariush Griffin
+ */
 public interface ClusterAlgorithm
 {
+  /**
+   * @return A set of {@link Cluster}s.
+   */
   public Set<Cluster> cluster();
 }
