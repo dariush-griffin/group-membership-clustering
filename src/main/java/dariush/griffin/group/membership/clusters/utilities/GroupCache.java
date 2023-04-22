@@ -28,17 +28,31 @@ import dariush.griffin.group.membership.clusters.model.Cluster;
 import dariush.griffin.group.membership.clusters.model.Group;
 import dariush.griffin.group.membership.clusters.model.Member;
 
+/**
+ * <p>A collection of {@link Group}s used to find {@link Group} that contain a {@link Member} or "similar"
+ * {@link Group}s. {@link Group}s are similar if they contain at least one shared {@link Member}.</p>
+ *
+ * @author Dariush Griffin
+ */
 public class GroupCache
 {
+  /**
+   * A mapping of {@link Member} to {@link Group}s it belongs to.
+   */
   private final Map<Member, Set<Group>> memberToGroups;
 
   public GroupCache() {
     this.memberToGroups = new HashMap<>();
   }
 
+  /**
+   * <p>Adds the {@link Group} to the cache.</p>
+   *
+   * @param group The {@link Group} that will be added to the cache.
+   */
   public void addGroup(Group group) {
-    for(Member member : group.getMembers().keySet()) {
-      if(!memberToGroups.containsKey(member)) {
+    for (Member member : group.getMembers().keySet()) {
+      if (!memberToGroups.containsKey(member)) {
         memberToGroups.put(member, new TreeSet<>());
       }
 
@@ -46,39 +60,86 @@ public class GroupCache
     }
   }
 
+  /**
+   * <p>Adds all {@link Group}s to the cache.</p>
+   *
+   * @param groups The {@link Group}s that will be added to the cache.
+   */
   public void addGroups(Collection<Group> groups) {
-    groups.forEach(group -> {addGroup(group);});
+    groups.forEach(group -> {
+      addGroup(group);
+    });
   }
 
-  public void addGroups(Cluster cluster){
-    cluster.getGroups().forEach(group -> {addGroup(group);});
+  /**
+   * <p>Adds all {@link Group}s in the {@link Cluster} to the cache.</p>
+   *
+   * @param cluster The {@link Cluster} whose {@link Group}s will be added to the cache.
+   */
+  public void addGroups(Cluster cluster) {
+    cluster.getGroups().forEach(group -> {
+      addGroup(group);
+    });
   }
 
+  /**
+   * <p>Gets all {@link Group}s that contain the given {@link Member}.</p>
+   *
+   * @param member The {@link Member} whose {@link Group} groups we are attempting to find.
+   * @return A set of {@link Group} that contains the provided {@link Member}.
+   */
   public Set<Group> getGroups(Member member) {
     return memberToGroups.get(member);
   }
 
+  /**
+   * <p>A "similar" {@link Group} is a {@link Group} that contains at least one shared {@link Member}.</p>
+   *
+   * @param group The {@link Group} whose {@link Member}s we will use to find "similar" {@link Group}s.
+   * @return A set of {@link  Group}s that contain a {@link Member} shared with the provided {@link  Group}.
+   */
   public Set<Group> getSimilarGroups(Group group) {
     Set<Group> result = new TreeSet<>();
     getSimilarGroups(group, result);
     return result;
   }
 
+  /**
+   * <p>For each {@link Group} in the {@link Cluster} find "similar" {@link Group}s. A "similar" {@link Group} is a
+   * group that contains at least one shared {@link Member}.</p>
+   *
+   * @param cluster The {@link Cluster} whose {@link Group}s we will use to find "similar" {@link Group}s.
+   * @return A set of {@link Group}s that are "similar" to the {@link Group}s in the provided {@link Cluster}.
+   */
   public Set<Group> getSimilarGroups(Cluster cluster) {
     return getSimilarGroups(cluster.getGroups());
   }
 
+  /**
+   * <p>For each provided {@link Group}, find "similar" {@link Group}s. A "similar" {@link Group} is a group that
+   * contains at least one shared {@link Member}.</p>
+   *
+   * @param groups A collection of {@link Group}s we will use to find "similar" {@link Group}s.
+   * @return A set of {@link Group}s that are "similar" to the provided {@link Group}s.
+   */
   public Set<Group> getSimilarGroups(Collection<Group> groups) {
     Set<Group> result = new TreeSet<>();
-    for(Group group : groups) {
+    for (Group group : groups) {
       getSimilarGroups(group, result);
     }
     return result;
   }
 
+  /**
+   * <p>Finds "similar" {@link Group} to the provided {@link Group} but places the "similar" {@link Group} in the
+   * provided Set.</p>
+   *
+   * @param group       The {@link Group} we will use to find "similar" {@link Group}s.
+   * @param accumulator The set we will place the "similar" {@link Group}s in.
+   */
   private void getSimilarGroups(Group group, Set<Group> accumulator) {
-    for(Member member : group.getMembers().keySet()) {
-      if(memberToGroups.containsKey(member)) {
+    for (Member member : group.getMembers().keySet()) {
+      if (memberToGroups.containsKey(member)) {
         accumulator.addAll(memberToGroups.get(member));
       }
     }
