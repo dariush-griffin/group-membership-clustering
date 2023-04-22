@@ -38,7 +38,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClusterUtilitiesTest
 {
-
   @Test
   public void testPairVectorWeights_Groups() {
     Group testGroupZero = new Group("test-group-zero");
@@ -106,11 +105,14 @@ public class ClusterUtilitiesTest
     testClusterZero.addGroup(testGroupZero);
     testClusterOne.addGroup(testGroupTwo);
 
-    float distance = calculateSquaredEuclideanDistance(calculateAverageVector(testClusterOne.getGroups()), calculateAverageVector(testClusterZero.getGroups()));
+    float distance = calculateSquaredEuclideanDistance(calculateAverageVector(testClusterOne.getGroups()),
+        calculateAverageVector(testClusterZero.getGroups()));
     // (.1 - 0)^2 + (.85 - 0)^2 + (.05 - .9)^2) + (0 - .1)^2 = 1.4649
     assertEquals(1.4649F, distance, .0001);
     // Testing that reversing the order has no bearing on the squared distance.
-    float distanceReverseClusterOrder = calculateSquaredEuclideanDistance(calculateAverageVector(testClusterZero.getGroups()), calculateAverageVector(testClusterOne.getGroups()));
+    float distanceReverseClusterOrder =
+        calculateSquaredEuclideanDistance(calculateAverageVector(testClusterZero.getGroups()),
+            calculateAverageVector(testClusterOne.getGroups()));
     assertEquals(distance, distanceReverseClusterOrder);
   }
 
@@ -135,5 +137,28 @@ public class ClusterUtilitiesTest
     // Testing that reversing the order has no bearing on the squared distance.
     assertEquals(calculateSquaredEuclideanDistance(testGroupZero, testGroupOne),
         calculateSquaredEuclideanDistance(testGroupOne, testGroupZero));
+  }
+
+  @Test
+  public void testCalculateSquaredEuclideanDistance_Vectors() {
+
+    Group testGroupZero = new Group("test-group-zero");
+    Group testGroupOne = new Group("test-group-one");
+
+    Member testMemberZero = new Member("test-member-zero", 0);
+    Member testMemberOne = new Member("test-member-one", 1);
+    Member testMemberTwo = new Member("test-member-two", 2);
+
+    testGroupZero.addMember(testMemberZero, .2F);
+    testGroupZero.addMember(testMemberOne, .8F);
+    testGroupOne.addMember(testMemberOne, .9F);
+    testGroupOne.addMember(testMemberTwo, .1F);
+
+    float distance = calculateSquaredEuclideanDistance(testGroupZero.getMembers(), testGroupOne.getMembers());
+    // (.2 - 0)^2 + (.8 - .9)^2 + (0 - .1)^2) = 0.0599
+    assertEquals(0.0599F, distance, .0001);
+    // Testing that reversing the order has no bearing on the squared distance.
+    assertEquals(calculateSquaredEuclideanDistance(testGroupZero.getMembers(), testGroupOne.getMembers()),
+        calculateSquaredEuclideanDistance(testGroupOne.getMembers(), testGroupZero.getMembers()));
   }
 }
