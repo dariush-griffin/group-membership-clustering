@@ -69,8 +69,8 @@ exclude a cluster with no contributions by any member. It still remains to be te
 binary search of minimum distance by repeatedly clustering and scoring the clusters based on how close the count is to
 optimal.
 
-The `AgglomerativeClusterAlgorithm` is a naive implementation of a (single-linkage hierarchical clustering
-algorithm)[https://en.wikipedia.org/wiki/Single-linkage_clustering] with two heuristics applied. The first heuristic is
+The (AgglomerativeClusterAlgorithm)[src/main/java/dariush/griffin/group/membership/clusters/algorithms/AgglomerativeClusterAlgorithm.java] is a naive implementation of a [single-linkage hierarchical clustering
+algorithm](https://en.wikipedia.org/wiki/Single-linkage_clustering) with two heuristics applied. The first heuristic is
 that since we are clustering similar groups we can ignore groups that do not have at least one member in common with our
 group. While the time complexity is still `n^3`, we can vastly reduce the number of groups needed for comparison with
 certain mappings. **It is best to avoid mappings where a member has contributed to the majority of groups as this can
