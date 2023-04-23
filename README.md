@@ -4,7 +4,7 @@ and users of those forums. If we want to see which forums are potentially relate
 user contributions to each forum.
 
 In this example each forum would correspond to a group and each user would be a member of one or more groups. We could
-use their message post frequency, or thread creation, as a way to create a contribution weight for each group. The
+use their message post frequency, or thread creation, as a way to create a contribution weight for each member. The
 agglomerative algorithm would then produce clusters of groups, or forums, who had similar members contributing with
 relative frequency.
 
