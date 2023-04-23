@@ -81,7 +81,9 @@ public class AgglomerativeClusterAlgorithm
       Group closestGroup = getClosestGroup(workingGroups, sourceCluster);
       if (closestGroup != null) {
         Cluster closestCluster = workingGroups.get(closestGroup);
+        // Merge the closest cluster with our source cluster.
         mergeClusters(closestCluster, sourceCluster);
+        // Make sure the closest cluster's groups now point to the merged cluster.
         remapClosestCluster(workingGroups, closestCluster, sourceCluster);
         merged = true;
       }
@@ -134,12 +136,9 @@ public class AgglomerativeClusterAlgorithm
   private Group getClosestGroup(Map<Group, Cluster> workingGroups, Cluster sourceCluster) {
     for (Group sourceGroup : sourceCluster.getGroups()) {
       for (Group similarGroup : groupCache.getSimilarGroups(sourceCluster)) {
-        // Make sure we aren't calculating the distance to ourselves or finding a group in our cluster.
-        if (!workingGroups.get(similarGroup).equals(sourceCluster) && !sourceGroup.equals(similarGroup)) {
-          float distance = calculateSquaredEuclideanDistance(sourceGroup, similarGroup);
-          if (distance < minSquaredEuclideanDistance) {
-            return similarGroup;
-          }
+        float distance = calculateSquaredEuclideanDistance(sourceGroup, similarGroup);
+        if (distance < minSquaredEuclideanDistance) {
+          return similarGroup;
         }
       }
     }

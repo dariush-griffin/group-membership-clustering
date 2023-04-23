@@ -101,6 +101,8 @@ public class GroupCache
   public Set<Group> getSimilarGroups(Group group) {
     Set<Group> result = new TreeSet<>();
     getSimilarGroups(group, result);
+    // We want to return groups that are not ourselves.
+    result.remove(group);
     return result;
   }
 
@@ -125,8 +127,13 @@ public class GroupCache
   public Set<Group> getSimilarGroups(Collection<Group> groups) {
     Set<Group> result = new TreeSet<>();
     for (Group group : groups) {
-      getSimilarGroups(group, result);
+      // We are clearly already similar to the Groups in our cluster, avoid the circular adding of groups.
+      if (!result.contains(group)) {
+        getSimilarGroups(group, result);
+      }
     }
+    // We want to return groups that are not ourselves.
+    result.removeAll(groups);
     return result;
   }
 

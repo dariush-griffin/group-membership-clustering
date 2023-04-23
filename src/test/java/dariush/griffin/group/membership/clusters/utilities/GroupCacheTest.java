@@ -69,16 +69,16 @@ public class GroupCacheTest
     testCache = new GroupCache();
     testCache.addGroups(testClusterOne);
     testCache.addGroups(testClusterZero);
-    assertThat(testCache.getSimilarGroups(testGroupOne), containsInAnyOrder(testGroupOne, testGroupZero, testGroupTwo));
+    assertThat(testCache.getSimilarGroups(testGroupOne), containsInAnyOrder(testGroupZero, testGroupTwo));
 
     testCache = new GroupCache();
     testCache.addGroups(testClusterOne);
     testCache.addGroups(testClusterZero);
-    assertThat(testCache.getSimilarGroups(testClusterOne), containsInAnyOrder(testGroupOne, testGroupTwo));
+    assertThat(testCache.getSimilarGroups(testClusterOne), containsInAnyOrder(testGroupOne));
 
     testCache = new GroupCache();
     testCache.addGroups(testClusterOne);
     testCache.addGroups(testClusterZero);
-    assertThat(testCache.getSimilarGroups(Arrays.asList(testGroupTwo)), containsInAnyOrder(testGroupOne, testGroupTwo));
+    assertThat(testCache.getSimilarGroups(Arrays.asList(testGroupTwo)), containsInAnyOrder(testGroupOne));
   }
 }
