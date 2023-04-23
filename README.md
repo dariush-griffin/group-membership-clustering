@@ -1,5 +1,4 @@
 # Description
-
 This library clusters groups based on group member's contributions. For example, suppose we have a collection of forums
 and users of those forums. If we want to see which forums are potentially related, we can cluster them based on their
 user contributions to each forum.
@@ -10,7 +9,6 @@ agglomerative algorithm would then produce clusters of groups, or forums, who ha
 relative frequency.
 
 # Example Usage
-
 Groups and members must be placed into a `MembershipMapping` and passed to the various clustering algorithms. For
 agglomerative clustering a minimum squared Euclidean distance must be supplied as well.
 
@@ -25,7 +23,7 @@ graph TD;
 ```
 
 ```java
-MembershipMapping membershipMapping=new MembershipMapping();
+MembershipMapping membershipMapping = new MembershipMapping();
 
 membershipMapping.addMemberToGroup("member-zero", "group-zero", .2F);
 membershipMapping.addMemberToGroup("member-one", "group-zero", .8F);
@@ -57,7 +55,7 @@ graph TD;
 
 # Group Membership Mapping and Clustering Briefly Explained
 
-The most important benefit of the `MembershipMapping` is that it ensures each member is given a unique
+The most important benefit of the [MembershipMapping](src/main/java/dariush/griffin/group/membership/clusters/model/MembershipMapping.java) is that it ensures each member is given a unique
 vector index which makes comparing Euclidean distance between groups possible. As each member is added to the
 mapping the vector space for comparison grows by a dimension. In plain English, if you have two members you have a
 cartesian plane, with three members you have three axes, etc. So with two members, groups would have member
@@ -82,5 +80,4 @@ distance, but since we are comparing every group in a cluster for shortest dista
 that should be part of the cluster.
 
 # Requirements
-
 - Java 8 or greater.
